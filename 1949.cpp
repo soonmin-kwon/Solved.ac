@@ -7,7 +7,7 @@ vector<int> tree[10001];
 int people[10001];
 int greatTown[10001][2]; // 0 = 우수 x, 1 = 우수 o
 
-void CountPeople(int cur, int prev) {
+void MakeGreatTown(int cur, int prev) {
 	greatTown[cur][0] = 0;
 	greatTown[cur][1] = people[cur];
 
@@ -16,7 +16,7 @@ void CountPeople(int cur, int prev) {
 	for (int i = 0; i < len; i++) {
 		int child = tree[cur][i];
 		if (prev != child) {
-			CountPeople(child, cur);
+			MakeGreatTown(child, cur);
 
 			greatTown[cur][0] += max(greatTown[child][0], greatTown[child][1]);
 			greatTown[cur][1] += greatTown[child][0];
@@ -42,7 +42,7 @@ int main() {
 		tree[node2].push_back(node1);
 	}
 
-	CountPeople(1, 0);
+	MakeGreatTown(1, 0);
 
 	cout << max(greatTown[1][0], greatTown[1][1]);
 }
